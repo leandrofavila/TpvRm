@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <style>
+
+        /* Estilo para o cabeçalho */
+        h1 {
+            color: #333; /* Cor do texto */
+            text-align: right; /* Alinhamento do texto */
+            margin-bottom: 42px; /* Margem inferior */
+        }
+
+        /* Estilo para o formulário */
+        form {
+            margin-bottom: 20px; /* Margem inferior */
+        }
+
+        /* Estilo para os campos de entrada */
+        input[type="text"] {
+            width: 28%; /* Largura total */
+            padding: 10px; /* Espaçamento interno */
+            margin-bottom: 10px; /* Margem inferior */
+            border: 1px solid #ccc; /* Borda */
+            border-radius: 4px; /* Borda arredondada */
+            box-sizing: border-box; /* Garante que a largura total inclua a borda e o preenchimento */
+        }
+
+        /* Estilo para o botão de envio */
+        button[type="submit"] {
+            width: 10%; /* Largura total */
+            padding: 10px; /* Espaçamento interno */
+            background-color: #007bff; /* Cor de fundo */
+            color: #fff; /* Cor do texto */
+            border: none; /* Remove a borda */
+            border-radius: 4px; /* Borda arredondada */
+            cursor: pointer; /* Cursor do mouse */
+            transition: background-color 0.3s; /* Transição suave */
+        }
+
+        /* Estilo para o botão de envio ao passar o mouse */
+        button[type="submit"]:hover {
+            background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+        }
+
+        /* Estilo para a tabela */
+        .table {
+            width: 100%; /* Largura total */
+            border-collapse: collapse; /* Colapso da borda */
+        }
+
+        /* Estilo para as células da tabela */
+        .table td, .table th {
+            padding: 8px; /* Espaçamento interno */
+            border: 1px solid #ddd; /* Borda */
+        }
+
+        /* Estilo para as células do cabeçalho da tabela */
+        .table th {
+            #background-color: #f2f2f2; /* Cor de fundo */
+            text-align: left; /* Alinhamento do texto */
+        }
+    </style>
+</head>
+<body>
+
+<div style="padding: 20px; border: 1px solid #ccc; margin-bottom: 20px;">
+    <h1>TPVRM</h1>
+    <form action="/" method="post">
+        <input type="text" name="cod_item" placeholder="Cod. Item" value="{{ request.form.cod_item }}">
+        <input type="text" name="dimencao" placeholder="Dimensão Qualquer" value="{{ request.form.dimencao }}">
+        <input type="text" name="variacao" placeholder="Variação Dimensão" value="{{ request.form.variacao }}">
+        <button type="submit">Enviar</button>
+    </form>
+    <table class="table" id="tabela">
+        {{ table_html|safe }}
+    </table>
+</div>
+
+<script>
+    function openPdf(pdfUrl) {
+        window.open(pdfUrl);
+    }
+</script>
+
+<script>
+    function copyToClipboard(text) {
+        // Criar um elemento de entrada de texto temporário
+        var input = document.createElement('textarea');
+        input.value = text;
+
+        // Adicionar o elemento ao corpo do documento
+        document.body.appendChild(input);
+
+        // Selecionar o texto dentro do elemento
+        input.select();
+
+        // Copiar o texto para a área de transferência
+        document.execCommand('copy');
+
+        // Remover o elemento temporário
+        document.body.removeChild(input);
+
+        // Exibir uma mensagem de sucesso (opcional)
+        alert("Caminho copiado para a área de transferência: " + text);
+    }
+</script>
+
+
+</body>
+</html>
