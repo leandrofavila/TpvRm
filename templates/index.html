@@ -76,7 +76,16 @@
     </form>
     <table class="table" id="tabela">
         {{ table_html|safe }}
+
     </table>
+    <table class="table" id="tabela_b">
+    <tr>
+        <th>Lista dos Itens: </th>
+    </tr>
+    <tr>
+            <td>{{ table_html_b|safe }}</td>
+        </tr>
+</table>
 </div>
 
 <script>
@@ -107,7 +116,6 @@
         alert("Caminho copiado para a área de transferência: " + text);
     }
 </script>
-
 
 </body>
 </html>
