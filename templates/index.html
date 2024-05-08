@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
     <style>
 
         /* Estilo para o cabeçalho */
@@ -76,16 +77,7 @@
     </form>
     <table class="table" id="tabela">
         {{ table_html|safe }}
-
     </table>
-    <table class="table" id="tabela_b">
-    <tr>
-        <th>Lista dos Itens: </th>
-    </tr>
-    <tr>
-            <td>{{ table_html_b|safe }}</td>
-        </tr>
-</table>
 </div>
 
 <script>
@@ -116,6 +108,58 @@
         alert("Caminho copiado para a área de transferência: " + text);
     }
 </script>
+
+    <!-- Botão para copiar os valores da coluna para a área de transferência -->
+    <button id="copyButton" class="custom-button">Copia Itens aqui pq a B.V. não gostou de como estava</button>
+
+<style>
+    /* Estilo para o botão personalizado */
+    .custom-button {
+        width: 42%; /* Largura total */
+        padding: 10px; /* Espaçamento interno */
+        background-color: #007bff; /* Cor de fundo */
+        color: #fff; /* Cor do texto */
+        border: none; /* Remove a borda */
+        border-radius: 4px; /* Borda arredondada */
+        cursor: pointer; /* Cursor do mouse */
+        transition: background-color 0.3s; /* Transição suave */
+    }
+
+    /* Estilo para o botão personalizado ao passar o mouse */
+    .custom-button:active {
+        background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+    }
+</style>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const cod_itens = document.querySelectorAll('tr > td:first-of-type');
+        let list_itens = '';
+
+        cod_itens.forEach(function(elemento) {
+            list_itens += elemento.innerText + '\n';
+        });
+
+        // Adicione um event listener ao botão com o id 'copyButton'
+        var clipboard = new ClipboardJS('#copyButton', {
+            text: function() {
+                return list_itens;
+            }
+        });
+
+        clipboard.on('success', function(e) {
+            console.log('Itens copiados para a área de transferência.');
+            e.clearSelection();
+        });
+
+        clipboard.on('error', function(e) {
+            console.error('Erro ao copiar itens para a área de transferência:', e);
+        });
+    });
+</script>
+
+
 
 </body>
 </html>

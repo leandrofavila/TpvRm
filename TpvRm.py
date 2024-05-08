@@ -60,17 +60,14 @@ def index():
             print('item_base', item_base)
             df = db.dim_itens(item_base, dimencao, variacao)
 
-        table_b = ','.join(str(x) for x in df['COD_ITEM'].tolist())
-
         df['Arq_CAD'] = df['COD_ITEM'].apply(add_paths)
         df['COD_ITEM'] = df["COD_ITEM"].apply(lambda x: rf'<a href="{url_link(x)}" target="_blank">{x}</a>')
 
         df = df.sort_values(by=['COD_ITEM']).reset_index(drop=True)
         df.index = df.index + 1
-
         table_html = df.to_html(classes='table table-striped', justify='left', escape=False, render_links=True)
 
-        return render_template('index.html', table_html=table_html, table_html_b=table_b, error="")
+        return render_template('index.html', table_html=table_html, error="")
     else:
         return render_template('index.html', table_html="", error="")
 
